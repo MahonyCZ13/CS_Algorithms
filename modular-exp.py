@@ -16,40 +16,51 @@ print(f"\n{Color.BOLD}---------------------------------{Color.END}")
 print(f"{Color.YELLOW}RMSA{Color.END}")
 print(f"{Color.BOLD}---------------------------------{Color.END}\n")
 
+# Convert decimal number to binary
 def toBinary(x):
     br = []
     
     while x >= 1:
         y = x
         x = x / 2
-        # Prepend
+        # Prepend is useful for true binary represenatation
         #br.insert(0, math.floor(y % 2))
-        # We need to append
+
+        # We need to append because of the RMSA requirement to start
+        # from the right when checking the binary number represenatation
         br.append(math.floor(y % 2))
     
     return br
 
+def modularExp(binArray):
 
+    total = 1
+    b = 1
+    c = 1
+    i = 0
+    for item in binar:
+        # print("Item: " + str(item))
+        if item == 1:
+            # Exponent
+            if i == 0:
+                c = 1
+            else:
+                c = 2**i
+            # print(str(b) + " * (" + str(base) + "^" + str(c) + ") mod " + str(modular))
+            b = (int(base)**c) % int(modular)
+            # print(str(total) + " * " + str(b))
+            total = total * b
+        # print("Total = " + str(total))
+        i = i + 1
+    return total
 
-a = 5
-k = 117
-n = 19
-b = 1
-i = 0
-c = 0
-binar = toBinary(k)
+# Variables
+base = input("Enter value for base number: ")
+expo = input("Enter exponent: ")
+modular = input("Enter modulo: ")
+binar = toBinary(int(expo))
+total = modularExp(binar) % int(modular)
 
-#for num in binar:
-#    print(num)
+print(f"{Color.BOLD}{Color.CYAN}Result:{Color.END}\n{Color.BOLD}{Color.YELLOW} " + str(base) + "^" +
+        str(expo) + " mod " + str(modular) + f" = {Color.BOLD}{Color.GREEN}" + str(total) + f"{Color.END}")
 
-# To finish
-# https://cs.khanacademy.org/computing/computer-science/cryptography/modarithmetic/a/fast-modular-exponentiation
-
-
-for item in binar:
-    if item == 1:
-        c = c + 2**i
-    
-    i = i + 1
-
-print(c)
